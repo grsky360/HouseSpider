@@ -30,7 +30,7 @@ if __name__ == '__main__':
         '我爱我家': [
 
         ],
-        # '自如': get_list('自如'),
+        '自如': get_list('自如'),
         'test': [
             # 'http://www.ziroom.com/z/vr/61310202.html'
         ],
