@@ -1,5 +1,6 @@
 import traceback
 
+from config import config
 import fav.ziroom
 import walker.walker as walker
 import xlslib
@@ -8,12 +9,7 @@ import xlslib
 def get_list(pt):
     pt_room_list = []
     if pt == '自如':
-        user_list = [
-            # {
-            #     'username': '',
-            #     'password': ''
-            # }
-        ]
+        user_list = config.configs['users']['ziroom']
         for user in user_list:
             ziroom = fav.ziroom.Ziroom(user['username'], user['password'])
             pt_room_list.extend(ziroom.fav())
