@@ -49,8 +49,8 @@ def to_tiger(start_position):
     return duration(start_position, tiger)
 
 
-def get_location(place, city='北京'):
-    address = parse.quote(place)
+def get_location(_place, city='北京'):
+    address = parse.quote(_place)
     encoded_city = parse.quote(city)
     url = 'http://restapi.amap.com/v3/geocode/geo?key=' + app_key + '&address=' + address + '&city=' + encoded_city
     result = request.urlopen(url).read().decode('utf-8')
@@ -59,7 +59,7 @@ def get_location(place, city='北京'):
 
 
 if __name__ == '__main__':
-    place = '姚家园东里8号院'
+    place = '南湖渠三巷'
     location = get_location(place)
     _to_tiger = to_tiger(location)
     _to_ziroom = to_ziroom(location)
