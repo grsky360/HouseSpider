@@ -59,10 +59,10 @@ def get_location(_place, city='北京'):
 
 
 if __name__ == '__main__':
-    place = '南湖渠三巷'
+    place = '奥林匹克森林公园'
     location = get_location(place)
     _to_tiger = to_tiger(location)
     _to_ziroom = to_ziroom(location)
     print('\t\tbus\t\twalk')
-    print('ziroom\t' + _to_ziroom['bus'] + '\t' + _to_ziroom['walk'])
-    print('tiger\t' + _to_tiger['bus'] + '\t' + _to_tiger['walk'])
+    print('ziroom\t' + _to_ziroom['bus'] + '\t\t' + _to_ziroom['walk'])
+    print('tiger\t' + _to_tiger['bus'] + '\t\t' + _to_tiger['walk'])
