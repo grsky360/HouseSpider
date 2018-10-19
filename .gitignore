@@ -2,3 +2,5 @@
 __pycache__/
 *.xls
 apply_config.py
+.vscode
+*.pyc

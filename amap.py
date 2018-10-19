@@ -59,7 +59,7 @@ def get_location(_place, city='北京'):
 
 
 if __name__ == '__main__':
-    place = '奥林匹克森林公园'
+    place = '芳星园二区'
     location = get_location(place)
     _to_tiger = to_tiger(location)
     _to_ziroom = to_ziroom(location)

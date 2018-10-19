@@ -1,4 +1,6 @@
+# coding:utf-8
 import traceback
+import threading
 
 from config import config
 import fav.ziroom
@@ -16,6 +18,15 @@ def get_list(pt):
     return pt_room_list
 
 
+def process(url, models, list_error):
+    try:
+        model = walker.walker(url)
+        models.append(model)
+    except():
+        traceback.format_exc()
+        list_error.append(url)
+
+
 if __name__ == '__main__':
     xls_name = './zhaofang.xls'
 
@@ -28,7 +39,7 @@ if __name__ == '__main__':
         ],
         '自如': get_list('自如'),
         'test': [
-            # 'http://www.ziroom.com/z/vr/61310202.html'
+
         ],
         '链家': [
 
@@ -36,11 +47,16 @@ if __name__ == '__main__':
     }
     list_error = []
     for pt, sublist in room_list.items():
+        threads = []
+        models = []
         for url in sublist:
-            try:
-                model = walker.walker(url)
-                xlslib.write(xls_name, pt, model)
-            except:
-                traceback.format_exc()
-                list_error.append(url)
+            t = threading.Thread(target=process, args=(url, models, list_error))
+            threads.append(t)
+        for th in threads:
+            if not th.is_alive():
+                th.start()
+        for thj in threads:
+            thj.join()
+        for model in models:
+            xlslib.write(xls_name, pt, model)
     print(list_error)

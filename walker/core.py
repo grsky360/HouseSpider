@@ -2,6 +2,7 @@ import re
 import ssl
 
 from urllib import request
+from http import cookiejar
 
 from bs4 import BeautifulSoup
 
@@ -10,13 +11,23 @@ from model import Model
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
+cookie = cookiejar.CookieJar()
+handler = request.HTTPCookieProcessor(cookie)
+opener = request.build_opener(handler)
+opener.addheaders = [
+    ('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) '
+                   'Chrome/67.0.3396.87 Safari/537.36')
+]
+
+
+def get(url):
+    response = opener.open(url)
+    data = response.read().decode('utf-8')
+    return data
+
 
 def url_get(url) -> BeautifulSoup:
-    req = request.Request(url)
-    req.add_header('User-Agent',
-                   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) '
-                   'Chrome/67.0.3396.87 Safari/537.36')
-    data = request.urlopen(req).read().decode('utf-8')
+    data = get(url)
     return BeautifulSoup(data, 'html.parser')
 
 
